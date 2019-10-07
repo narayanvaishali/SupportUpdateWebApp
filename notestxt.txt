@@ -1,0 +1,8 @@
+﻿//https://www.c-sharpcorner.com/article/learn-about-react-app-with-visual-studio-2019/
+
+
+//https://www.c-sharpcorner.com/article/crud-operations-in-reactjs-with-axios-using-web-api-and-sql-server/
+
+//
+//https://www.c-sharpcorner.com/article/crud-operations-using-web-api-and-reactjs/
+
