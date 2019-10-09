@@ -15,6 +15,10 @@ import AddSupportUpdate from './components/Supportupdate/AddSupportUpdate';
 import SupportUpdateList from './components/Supportupdate/SupportUpdateList';
 import EditSupportUpdate from './components/Supportupdate/EditSupportUpdate';  
 
+import AddSupportStaff from './components/Staff/AddStaff';
+import SupportStaffList from './components/Staff/StaffList';
+import EditSupportStaff from './components/Staff/EditStaff';  
+
 
 export default class App extends Component {
   static displayName = App.name;
@@ -33,6 +37,10 @@ export default class App extends Component {
             <Route path='/prioritylist' component={PriorityList} />
             <Route path='/addpriority' component={AddPriority} />
             <Route exact path='/editpriority/:priorityid' component={EditPriority} />  
+
+            <Route path='/stafflist' component={SupportStaffList} />
+            <Route path='/addstaff' component={AddSupportStaff} />
+            <Route exact path='/editstaff/:staffid' component={EditSupportStaff} />  
       </Layout>
     );
   }
