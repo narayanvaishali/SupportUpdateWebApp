@@ -18,10 +18,11 @@ class EditSupportUpdate extends React.Component {
             status: '',
             timespent: '',
             dateworked: '',
-            staffname: '',
+            staffid: '',
             supportupdate: [],
             supportstatus: [],
-            supportpriority: []
+            supportpriority: [],
+            supportstaff: [],
         }
 
         this.handleChange = this.handleChange.bind(this);
@@ -38,7 +39,8 @@ class EditSupportUpdate extends React.Component {
                     {
                         supportupdate: response.data.supportupdate,
                         supportstatus: response.data.supportstatus,
-                        supportpriority: response.data.supportpriority
+                        supportpriority: response.data.supportpriority,
+                        supportstaff: response.data.supportstaff
                     }
                 );
 
@@ -50,7 +52,7 @@ class EditSupportUpdate extends React.Component {
                     status: response.data.supportupdate[0].CurrentStatusID,
                     timespent: response.data.supportupdate[0].TimeSpent,
                     dateworked: response.data.supportupdate[0].DateWorked,
-                    staffname: response.data.supportupdate[0].Staff_Name
+                    staffid: response.data.supportupdate[0].StaffID
                   
                 });
 
@@ -80,7 +82,7 @@ class EditSupportUpdate extends React.Component {
             CurrentStatusID: this.state.status,
             TimeSpent: this.state.timespent,
             DateWorked: this.state.dateworked,
-            Staff_Name: this.state.staffname
+            StaffID: this.state.staffid
         };
         axios.post('https://localhost:5001/api/supportupdate/addeditsupportupdate/', obj)
             .then(json => {
@@ -105,6 +107,10 @@ class EditSupportUpdate extends React.Component {
 
         let prioritylist = this.state.supportpriority.length > 0 && this.state.supportpriority.map(v => (
             <option value={v.PriorityID} selected={v.PriorityID === this.state.priority}>{v.Priority}</option>
+        ));
+
+        let stafflist = this.state.supportstaff.length > 0 && this.state.supportstaff.map(v => (
+            <option value={v.StaffID}>{v.StaffName}</option>
         ));
 
         return (
@@ -143,16 +149,12 @@ class EditSupportUpdate extends React.Component {
                             </Col>
                         </FormGroup>
                         <FormGroup row>
-                            <Label for="staffname" sm={2}>Staff</Label>
+                            <Label for="staffid" sm={2}>Staff</Label>
                             <Col sm={10}>
-                                <select name="staffname" value={this.state.staffname}  onChange={this.handleChange} >
-                                    <option value="">Select</option>
-                                    <option value="VP">VP</option>
-                                    <option value="TA">TA</option>
-                                    <option value="FZ">FZ</option>
-                                    <option value="CM">CM</option>
-                                    <option value="TT">TT</option>
-                                    <option value="KT">KT</option>
+
+                                <select name="staffid" value={this.state.value} onChange={this.handleChange}>
+                                    <option id="0">Select</option>
+                                    {stafflist}
                                 </select>
                             </Col>
                         </FormGroup>

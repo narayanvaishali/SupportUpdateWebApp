@@ -12,10 +12,11 @@ const initialState = {
     status: '',
     timespent: '',
     dateworked: '',
-    staffname: '',
+    staffid: '',
     supportupdate: [],
     supportstatus: [],
     supportpriority: [],
+    supportstaff: [],
 
     supportupdateidError: "",
     zdidError: '',
@@ -77,7 +78,7 @@ class AddSupportUpdate extends React.Component {
             dateworkedError = "please enter date worked";
         }
 
-        if (!this.state.staffname) {
+        if (!this.state.staffid) {
             staffnameError = "please enter staff name";
         }
 
@@ -104,7 +105,7 @@ class AddSupportUpdate extends React.Component {
                 CurrentStatusID: this.state.status,
                 TimeSpent: this.state.timespent,
                 DateWorked: this.state.dateworked,
-                Staff_Name: this.state.staffname
+                StaffID: this.state.staffid
             }
 
             axios.post('https://localhost:5001/api/supportupdate/addeditsupportupdate/', Data)
@@ -129,7 +130,8 @@ class AddSupportUpdate extends React.Component {
                     {
                         supportupdate: response.data.supportupdate,
                         supportstatus: response.data.supportstatus,
-                       supportpriority: response.data.supportpriority
+                        supportpriority: response.data.supportpriority,
+                        supportstaff: response.data.supportstaff
                     }
                 );
             })
@@ -148,7 +150,7 @@ class AddSupportUpdate extends React.Component {
             CurrentStatusID: this.state.status,
             TimeSpent: this.state.timespent,
             DateWorked: this.state.dateworked,
-            Staff_Name: this.state.staffname
+            StaffID: this.state.staffid
         }
   
         axios.post('https://localhost:5001/api/supportupdate/addeditsupportupdate/', Data)
@@ -183,6 +185,9 @@ class AddSupportUpdate extends React.Component {
             <option value={v.PriorityID}>{v.Priority}</option>
         ));
 
+        let stafflist = this.state.supportstaff.length > 0 && this.state.supportstaff.map(v => (
+            <option value={v.StaffID}>{v.StaffName}</option>
+        ));
 
         return (
             <Container className="App">
@@ -240,15 +245,12 @@ class AddSupportUpdate extends React.Component {
                             </Col>
                         </FormGroup>
                         <FormGroup row>
-                            <Label for="staffname" sm={2}>Staff</Label>
+                            <Label for="staffid" sm={2}>Staff</Label>
                             <Col sm={10}>
-                                <select name="staffname" onChange={this.handleChange} >
-                                    <option value="">Select</option>
-                            
-                                    <option value="FZ">FZ</option>
-                                    <option value="CM">CM</option>
-                                    <option value="TT">TT</option>
-                                    <option value="KT">KT</option>
+
+                                <select name="staffid" value={this.state.value} onChange={this.handleChange}>
+                                    <option id="0">Select</option>
+                                    {stafflist}
                                 </select>
                             </Col>
                         </FormGroup>

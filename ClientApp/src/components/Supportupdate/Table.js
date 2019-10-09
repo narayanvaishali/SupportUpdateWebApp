@@ -41,10 +41,10 @@ class Table extends Component {
                     {this.props.obj.DateWorked}
                 </td>
                 <td>
-                    {this.props.obj.Staff_Name}
+                    {this.props.obj.StaffName}
                 </td>
                 <td>
-                    {this.props.obj.Staff_email}
+                    {this.props.obj.Staffemail}
                 </td>
                 <td>
                     &nbsp;
