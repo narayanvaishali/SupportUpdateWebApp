@@ -26,6 +26,9 @@ class Table extends Component {
                     {this.props.obj.ZD_ID}
                 </td>
                 <td>
+                    {this.props.obj.ClientName}
+                </td>
+                <td>
                     {this.props.obj.ZD_Descr}
                 </td>
                 <td>

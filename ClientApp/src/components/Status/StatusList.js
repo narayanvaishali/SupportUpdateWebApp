@@ -29,6 +29,7 @@ class StatusList extends React.Component {
 
     deleteStatus(statusId) {
         const { statuses } = this.state;
+
         axios.delete(apiUrl + 'deletestatus?statusid=' + statusId).then(result => {
 
            // console.log('delete...' + JSON.stringify(result));

@@ -11,7 +11,8 @@ export default class SupportUpdateList extends Component {
          this.state = {
              supportupdate: [],
              supportstatus: [],
-             supportpriority: []
+             supportpriority: [],
+             supportclients: [],
          };
     }
     componentDidMount() {
@@ -29,7 +30,8 @@ export default class SupportUpdateList extends Component {
                     {
                         supportupdate: response.data.supportupdate,
                         supportstatus: response.data.supportstatus,
-                        supportpriority: response.data.supportpriority
+                        supportpriority: response.data.supportpriority,
+                        supportclients: response.data.supportclients
                     }
                 );
             })
@@ -53,6 +55,7 @@ export default class SupportUpdateList extends Component {
                     <thead>
                         <tr>
                             <th>ZD_ID</th>
+                            <th>Client</th>
                             <th>ZD Descr</th>
                             <th>Priority</th>
                             <th>Current Status</th>

@@ -13,10 +13,12 @@ const initialState = {
     timespent: '',
     dateworked: '',
     staffid: '',
+    clientid : '',
     supportupdate: [],
     supportstatus: [],
     supportpriority: [],
     supportstaff: [],
+    supportclients: [],
 
     supportupdateidError: "",
     zdidError: '',
@@ -25,7 +27,8 @@ const initialState = {
     statusError: '',
     timespentError: '',
     dateworkedError: '',
-    staffnameError: ''
+    staffnameError: '',
+    clientnameError : ''
 
 };
 
@@ -53,6 +56,7 @@ class AddSupportUpdate extends React.Component {
         let timespentError = "";
         let dateworkedError = "";
         let staffnameError = "";
+        let clientnameError = "";
 
         if (!this.state.zdid) {
             zdidError = "please enter ZD ID";
@@ -63,11 +67,11 @@ class AddSupportUpdate extends React.Component {
         }
 
         if (!this.state.priority) {
-            priorityError = "please enter priority";
+            priorityError = "please select priority";
         }
 
         if (!this.state.status) {
-            statusError = "please enter status";
+            statusError = "please select status";
         }
 
         if (!this.state.timespent) {
@@ -82,8 +86,12 @@ class AddSupportUpdate extends React.Component {
             staffnameError = "please enter staff name";
         }
 
-        if (zdidError || zddescrError || priorityError || statusError || timespentError || dateworkedError || staffnameError) {
-            this.setState({ zdidError,priorityError, statusError, timespentError, dateworkedError, staffnameError });
+        if (!this.state.clientid) {
+            clientnameError = "please select client";
+        }
+
+        if (zdidError || zddescrError || priorityError || statusError || timespentError || dateworkedError || staffnameError || clientnameError) {
+            this.setState({ zdidError, priorityError, statusError, timespentError, dateworkedError, staffnameError, clientnameError });
             return false;
         }
 
@@ -95,13 +103,14 @@ class AddSupportUpdate extends React.Component {
         const isValid = this.validate();
 
         if (isValid) {
-            console.log(this.state);
+            //console.log(this.state);
 
             const Data = {
                 SupportUpdateID: 0,
                 ZD_ID: this.state.zdid,
                 ZD_Descr: this.state.zddescr,
                 PriorityID: this.state.priority,
+                ClientID: this.state.clientid,
                 CurrentStatusID: this.state.status,
                 TimeSpent: this.state.timespent,
                 DateWorked: this.state.dateworked,
@@ -131,7 +140,8 @@ class AddSupportUpdate extends React.Component {
                         supportupdate: response.data.supportupdate,
                         supportstatus: response.data.supportstatus,
                         supportpriority: response.data.supportpriority,
-                        supportstaff: response.data.supportstaff
+                        supportstaff: response.data.supportstaff,
+                        supportclients: response.data.supportclients
                     }
                 );
             })
@@ -147,6 +157,7 @@ class AddSupportUpdate extends React.Component {
             ZD_ID: this.state.zdid,
             ZD_Descr: this.state.zddescr,
             PriorityID: this.state.priority,
+            ClientID: this.state.clientid,
             CurrentStatusID: this.state.status,
             TimeSpent: this.state.timespent,
             DateWorked: this.state.dateworked,
@@ -189,6 +200,10 @@ class AddSupportUpdate extends React.Component {
             <option value={v.StaffID}>{v.StaffName}</option>
         ));
 
+        let clientlist = this.state.supportclients.length > 0 && this.state.supportclients.map(v => (
+            <option value={v.supportClientID}>{v.ClientName}</option>
+        ));
+
         return (
             <Container className="App">
                 <h4 className="PageHeading">Add Support Update</h4>
@@ -214,6 +229,20 @@ class AddSupportUpdate extends React.Component {
                         <FormGroup row>
                             <Col sm={10}>
                                 <Label style={{ fontSize: 12, color: "red" }}> {this.state.zddescrError}</Label>
+                            </Col>
+                        </FormGroup>
+                        <FormGroup row>
+                            <Label for="clientid" sm={2}>Clients</Label>
+                            <Col sm={10}>
+                                <select name="clientid" value={this.state.clientid} onChange={this.handleChange}>
+                                    <option id="0">Select</option>
+                                    {clientlist}
+                                </select>
+                            </Col>
+                        </FormGroup>
+                        <FormGroup row>
+                            <Col sm={10}>
+                                <Label style={{ fontSize: 12, color: "red" }}> {this.state.clientnameError}</Label>
                             </Col>
                         </FormGroup>
                         <FormGroup row>

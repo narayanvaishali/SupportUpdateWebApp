@@ -19,10 +19,12 @@ class EditSupportUpdate extends React.Component {
             timespent: '',
             dateworked: '',
             staffid: '',
+            clientid: '',
             supportupdate: [],
             supportstatus: [],
             supportpriority: [],
             supportstaff: [],
+            supportclients: []
         }
 
         this.handleChange = this.handleChange.bind(this);
@@ -40,7 +42,8 @@ class EditSupportUpdate extends React.Component {
                         supportupdate: response.data.supportupdate,
                         supportstatus: response.data.supportstatus,
                         supportpriority: response.data.supportpriority,
-                        supportstaff: response.data.supportstaff
+                        supportstaff: response.data.supportstaff,
+                        supportclients: response.data.supportclients
                     }
                 );
 
@@ -52,8 +55,8 @@ class EditSupportUpdate extends React.Component {
                     status: response.data.supportupdate[0].CurrentStatusID,
                     timespent: response.data.supportupdate[0].TimeSpent,
                     dateworked: response.data.supportupdate[0].DateWorked,
-                    staffid: response.data.supportupdate[0].StaffID
-                  
+                    staffid: response.data.supportupdate[0].StaffID,
+                    clientid: response.data.supportupdate[0].ClientID,
                 });
 
             })
@@ -80,6 +83,7 @@ class EditSupportUpdate extends React.Component {
             ZD_Descr: this.state.zddescr,
             PriorityID: this.state.priority,
             CurrentStatusID: this.state.status,
+            ClientID: this.state.clientid,
             TimeSpent: this.state.timespent,
             DateWorked: this.state.dateworked,
             StaffID: this.state.staffid
@@ -113,6 +117,10 @@ class EditSupportUpdate extends React.Component {
             <option value={v.StaffID}>{v.StaffName}</option>
         ));
 
+        let clientlist = this.state.supportclients.length > 0 && this.state.supportclients.map(v => (
+            <option value={v.supportClientID}>{v.ClientName}</option>
+        ));
+
         return (
             <Container className="App">
                 <h4 className="PageHeading">Update Support Update</h4>
@@ -140,6 +148,15 @@ class EditSupportUpdate extends React.Component {
                             </Col>
                         </FormGroup>
                         <FormGroup row>
+                            <Label for="clientid" sm={2}>Clients</Label>
+                            <Col sm={10}>
+                                <select name="clientid" value={this.state.clientid} onChange={this.handleChange}>
+                                    <option id="0">Select</option>
+                                    {clientlist}
+                                </select>
+                            </Col>
+                        </FormGroup>
+                        <FormGroup row>
                             <Label for="priority" sm={2}>Status</Label>
                             <Col sm={10}>
                                 <select name="status" value={this.state.status} onChange={this.handleChange}>
@@ -152,7 +169,7 @@ class EditSupportUpdate extends React.Component {
                             <Label for="staffid" sm={2}>Staff</Label>
                             <Col sm={10}>
 
-                                <select name="staffid" value={this.state.value} onChange={this.handleChange}>
+                                <select name="staffid" value={this.state.staffid} onChange={this.handleChange}>
                                     <option id="0">Select</option>
                                     {stafflist}
                                 </select>
